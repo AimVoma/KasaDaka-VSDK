@@ -12,12 +12,12 @@ from .vs_element import VoiceServiceElement
 
 
 
-class Consumers(models.Model):
+class Consumer(models.Model):
 	Credentials = models.FileField(help_text = "Ensure your file is in the correct format! Wave: Sample rate 8KHz, 16 bit, mono, Codec: PCM 16 LE (s16l)")
 	Date = models.CharField(max_length=100)
 	product = models.FileField(help_text = "Ensure your file is in the correct format! Wave: Sample rate 8KHz, 16 bit, mono, Codec: PCM 16 LE (s16l)")
 
-class Producers(models.Model):
+class Producer(models.Model):
 	Credentials = models.FileField(help_text = "Ensure your file is in the correct format! Wave: Sample rate 8KHz, 16 bit, mono, Codec: PCM 16 LE (s16l)")
 	Date = models.CharField(max_length=100)
 	product = models.FileField(help_text = "Ensure your file is in the correct format! Wave: Sample rate 8KHz, 16 bit, mono, Codec: PCM 16 LE (s16l)")
