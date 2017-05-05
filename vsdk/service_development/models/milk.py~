@@ -32,7 +32,7 @@ class Record(VoiceServiceElement):
             blank = True,
             related_name='%(app_label)s_%(class)s_related',
             help_text = "The element to redirect to after the message has been played.")
-    voice_labelc = models.ForeignKey(
+    voice_label = models.ForeignKey(
             VoiceLabel,
             on_delete = models.SET_NULL,
             null = True,

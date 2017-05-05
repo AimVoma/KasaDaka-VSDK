@@ -1,0 +1,39 @@
+{% block content %}
+<form id="recording_form">
+
+<record name="recording" beep="true" maxtime="60s"
+  finalsilence="4s" dtmfterm="true"> 
+<prompt>
+
+<audio src="{{premessage_voice_fragment_url}}"/>
+</prompt>
+</record>
+<field name="confirm">
+<prompt>
+<audio expr="recording"/>
+<audio src="{{postmessage_voice_fragment_url}}"/>
+</prompt>
+<grammar xml:lang="en-US" root = "MYRULE" mode="dtmf">
+      <rule id="MYRULE" scope = "public">
+        <one-of>        
+            <item>1</item>         
+            <item>2</item>        
+        </one-of>
+       </rule>
+     </grammar>
+
+  <filled>
+      <if cond="confirm == '1'">
+    <submit next="{{redirect_url}}" method="post" 
+     namelist="recording" />
+   </if>
+      <if cond="confirm == '2'">
+    <goto next="#recording_form"/>
+   </if>
+
+  </filled>
+ </field>
+
+</form>
+
+{% endblock %}
