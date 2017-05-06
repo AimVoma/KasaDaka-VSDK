@@ -12,34 +12,52 @@ def record_generate_context(record_element, session, session_id, element_id, req
 
 	language = session.language
 	premessage_voice_fragment_url = record_element.get_voice_fragment_url(language)
-	postmessage_voice_fragment_url = record_element.voice_labelc.get_voice_fragment_url(language)
+	postmessage_voice_fragment_url = record_element.voice_label_confirm.get_voice_fragment_url(language)
 	context = {'premessage_voice_fragment_url':premessage_voice_fragment_url,
 		'postmessage_voice_fragment_url':postmessage_voice_fragment_url,
 			'redirect_url':request.get_full_path()}
 	return context
 
 
-def record(request, element_id, session_id):
+def record_announcement(request, element_id, session_id):
 
-	record_element = get_object_or_404(Record, pk=element_id)
+	record_element = get_object_or_404(Record_announcement, pk=element_id)
 	session = get_object_or_404(CallSession, pk=session_id)
 	context = record_generate_context(record_element, session, session_id, element_id, request) 
 	if request.method == 'GET':
 		session.record_step(record_element)   
 		return render(request, 'recording_t.xml', context, content_type='text/xml')
 	if request.method == 'POST':
-		redirect_url = record_get_redirect_url(record_element,session) 
-		recording = request.FILES
-		t=type(recording)
-		print(recording)
-	if True:
-		offer = Offer(Message=recording)
-		offer.save()
-	else:
-		announcement = Announcement(Message=recording)
-		announcement.save()
-	return HttpResponseRedirect(redirect_url)
+		redirect_url = record_get_redirect_url(record_element,session)
+		#for now the upload recording functionalities is not active
+		#print(request.FILES)
+		#recording = request.FILES['recording']
+		#recording.name='announcement_%s_%s.wav' % (session_id, session.caller_id)
+		#t=type(recording)
+		#print(recording)
+		#announcement = Announcement(Message=recording)
+		#announcement.save()
+		return HttpResponseRedirect(redirect_url)
 
+def record_offer(request, element_id, session_id):
+
+	record_element = get_object_or_404(Record_offer, pk=element_id)
+	session = get_object_or_404(CallSession, pk=session_id)
+	context = record_generate_context(record_element, session, session_id, element_id, request) 
+	if request.method == 'GET':
+		session.record_step(record_element)   
+		return render(request, 'recording_t.xml', context, content_type='text/xml')
+	if request.method == 'POST':
+		redirect_url = record_get_redirect_url(record_element,session)
+		#for now the upload recording functionalities is not active
+		#print(request.FILES)
+		#recording = request.FILES['recording']
+		#recording.name='offer_%s_%s.wav' % (session_id, session.caller_id)
+		#t=type(recording)
+		#print(recording)
+		#offer = Offer(Message=recording)
+		#offer.save()
+		return HttpResponseRedirect(redirect_url)
 
 def choice_options_resolve_redirect_urls(choice_options, session):
 	choice_options_redirection_urls = []

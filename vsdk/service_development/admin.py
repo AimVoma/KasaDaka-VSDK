@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import VoiceService, MessagePresentation, Choice, ChoiceOption, VoiceFragment, CallSession, CallSessionStep, KasaDakaUser, Language, VoiceLabel, Offer, Announcement, Record
+from .models import VoiceService, MessagePresentation, Choice, ChoiceOption, VoiceFragment, CallSession, CallSessionStep, KasaDakaUser, Language, VoiceLabel, Offer, Announcement, Record_offer, Record_announcement
 
 def format_validation_result(obj):
         """
@@ -100,4 +100,5 @@ admin.site.register(Language)
 admin.site.register(VoiceLabel, VoiceLabelAdmin)
 admin.site.register(Offer)
 admin.site.register(Announcement)
-admin.site.register(Record)
+admin.site.register(Record_announcement)
+admin.site.register(Record_offer)
