@@ -6,8 +6,9 @@ plays back a message, then sends the user to the redirect
 {% block content %}
 <form>
 <block>
-<prompt>
+<prompt bargein="false">
 <audio src="{{ message_voice_fragment_url }}"/>
+<break time="300"/>    
 </prompt>
 {% if redirect_url %}
 <goto next="{{ redirect_url }}"/>
@@ -16,4 +17,3 @@ plays back a message, then sends the user to the redirect
 </form>
 
 {% endblock %}
-
