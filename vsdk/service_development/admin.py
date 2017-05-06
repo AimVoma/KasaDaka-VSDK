@@ -48,7 +48,8 @@ class ChoiceOptionsInline(admin.TabularInline):
 
 class ChoiceAdmin(VoiceServiceElementAdmin):
     inlines = [ChoiceOptionsInline]
-
+    fieldsets = VoiceServiceElementAdmin.fieldsets + [('Choice', {'fields': ['voice_label_no_input']})]
+    list_display = VoiceServiceElementAdmin.list_display + ('voice_label_no_input',)
 class VoiceLabelInline(admin.TabularInline):
     model = VoiceFragment
     extra = 2
