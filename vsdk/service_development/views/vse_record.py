@@ -33,13 +33,9 @@ def record(request, element_id, session_id):
     if request.method == 'POST':
         redirect_url = record_get_redirect_url(record_element,session)
         recording = request.FILES['recording']
-        recording.file.name = 'recording_%s_%s_%s.wav' % (session_id, element_id,str(int(time.time())))
-    if True:
-            offer_obj = Offer(Message=recording)
-            offer_obj.save()
-    else:
-            announcement_obj = Announcement(Message=recording)
-            announcement_obj.save()
+        offer_obj = Offer(Message=recording)
+        offer_obj.Message.name = 'recording_%s_%s_%s.wav' % (session_id, element_id,str(int(time.time())))
+        offer_obj.save()
     return HttpResponseRedirect(redirect_url)
 
 
