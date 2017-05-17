@@ -10,20 +10,21 @@ def record_get_redirect_url(record_element,session):
 
 
 
-def record_generate_context(record_element, session, session_id, element_id):
+def record_generate_context(record_element, session, session_id, element_id, request):
     language = session.language
     premessage_voice_fragment_url = record_element.get_voice_fragment_url(language)
-    postmessage_voice_fragment_url = record_element.get_voice_fragment_urlc(language)
+    postmessage_voice_fragment_url = record_element.get_voice_fragment_url(language)
     context = {'premessage_voice_fragment_url':premessage_voice_fragment_url,
                'postmessage_voice_fragment_url':postmessage_voice_fragment_url,
-            'redirect_url':reverse('record',args[element_id, session_id])}
+            'redirect_url':request.get_full_path()
+               }
     return context
 
 
 def record(request, element_id, session_id):
-    record_element = get_object_or_404(MessagePresentation, pk=element_id)
+    record_element = get_object_or_404(Record_offer, pk=element_id)
     session = get_object_or_404(CallSession, pk=session_id)
-    context = record_generate_context(record_element, session, session_id, element_id)
+    context = record_generate_context(record_element, session, session_id, element_id, request)
     if request.method == 'GET':
         session.record_step(record_element)
         return render(request, 'recording_t.xml', context, content_type='text/xml')
