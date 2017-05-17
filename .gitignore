@@ -89,9 +89,9 @@ ENV/
 .ropeproject
 
 *.swp
-*.wav
+#*.wav
 *migrations*
 *db.sqlite3
-uploads/*
+#uploads/*
 #vsdk/settings.py
 vsdk/staticfiles
