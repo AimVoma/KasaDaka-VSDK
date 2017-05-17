@@ -33,7 +33,7 @@ def record(request, element_id, session_id):
     if request.method == 'POST':
         redirect_url = record_get_redirect_url(record_element,session)
         recording = request.FILES['recording']
-        result.file.name = 'recording_%s_%s_%s.wav' % (session_id, element_id,str(int(time.time())))
+        recording.file.name = 'recording_%s_%s_%s.wav' % (session_id, element_id,str(int(time.time())))
     if True:
             offer_obj = Offer(Message=recording)
             offer_obj.save()
