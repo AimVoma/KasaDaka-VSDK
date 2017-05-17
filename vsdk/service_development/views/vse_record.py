@@ -15,7 +15,7 @@ def record_generate_context(record_element, session, session_id, element_id):
     premessage_voice_fragment_url = record_element.get_voice_fragment_url(language)
     postmessage_voice_fragment_url = record_element.get_voice_fragment_urlc(language)
     context = {'premessage_voice_fragment_url':premessage_voice_fragment_url,
-		'postmessage_voice_fragment_url':postmessage_voice_fragment_url,
+               'postmessage_voice_fragment_url':postmessage_voice_fragment_url,
             'redirect_url':reverse('record',args[element_id, session_id])}
     return context
 
@@ -30,13 +30,13 @@ def record(request, element_id, session_id):
     if request.method == 'POST':
         redirect_url = record_get_redirect_url(record_element,session)
         recording = request.FILES['recording']
-	if True:
+    if True:
             offer = models.Offer(Message=recording)
             offer.save()
-	else:
+    else:
             announcement = models.Announcement(Message=recording)
-	    announcement.save()
-        return HttpResponseRedirect(redirect_url)
+            announcement.save()
+    return HttpResponseRedirect(redirect_url)
 
 
 def get_voice_fragment_urlc(self, language):
