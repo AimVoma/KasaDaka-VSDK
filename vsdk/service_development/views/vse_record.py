@@ -32,11 +32,11 @@ def record(request, element_id, session_id):
         redirect_url = record_get_redirect_url(record_element,session)
         recording = request.FILES['recording']
     if True:
-            offer = models.Offer(Message=recording)
-            offer.save()
+            offer_obj = Offer(Message=recording)
+            offer_obj.save()
     else:
-            announcement = models.Announcement(Message=recording)
-            announcement.save()
+            announcement_obj = Announcement(Message=recording)
+            announcement_obj.save()
     return HttpResponseRedirect(redirect_url)
 
 
