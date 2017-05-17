@@ -1,3 +1,4 @@
+{% extends "base.xml" %}
 {% block content %}
 <form id="recording_form">
 
