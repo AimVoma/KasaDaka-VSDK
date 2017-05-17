@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, redirec
 from django.core.urlresolvers import reverse
 from ..models import *
 
+import time
+
 def record_get_redirect_url(record_element,session):
     if not record_element.final_element:
         return record_element.redirect.get_absolute_url(session)
@@ -31,6 +33,7 @@ def record(request, element_id, session_id):
     if request.method == 'POST':
         redirect_url = record_get_redirect_url(record_element,session)
         recording = request.FILES['recording']
+        result.file.name = 'recording_%s_%s_%s.wav' % (session_id, element_id,str(int(time.time())))
     if True:
             offer_obj = Offer(Message=recording)
             offer_obj.save()
