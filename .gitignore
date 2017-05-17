@@ -95,6 +95,6 @@ ENV/
 #uploads/*
 #vsdk/settings.py
 vsdk/staticfiles
-
+*/migrations/*
 kasadaka/*
 *~
