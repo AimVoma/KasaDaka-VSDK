@@ -23,7 +23,7 @@ def record_generate_context(record_element, session, session_id, element_id, req
     return context
 
 
-def record(request, element_id, session_id):
+def record_of(request, element_id, session_id):
     record_element = get_object_or_404(Record_offer, pk=element_id)
     session = get_object_or_404(CallSession, pk=session_id)
     context = record_generate_context(record_element, session, session_id, element_id, request)
@@ -38,6 +38,20 @@ def record(request, element_id, session_id):
         offer_obj.save()
     return HttpResponseRedirect(redirect_url)
 
+def record_an(request, element_id, session_id):
+    record_element = get_object_or_404(Record_announcement, pk=element_id)
+    session = get_object_or_404(CallSession, pk=session_id)
+    context = record_generate_context(record_element, session, session_id, element_id, request)
+    if request.method == 'GET':
+        session.record_step(record_element)
+        return render(request, 'recording_t.xml', context, content_type='text/xml')
+    if request.method == 'POST':
+        redirect_url = record_get_redirect_url(record_element,session)
+        recording = request.FILES['recording']
+        announcement_obj = Announcement(Message=recording)
+        announcement_obj.Message.name = 'recording_%s_%s_%s.wav' % (session_id, element_id,str(int(time.time())))
+        announcement_obj.save()
+    return HttpResponseRedirect(redirect_url)
 
 def get_voice_fragment_urlc(self, language):
     """
